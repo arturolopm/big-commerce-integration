@@ -13,7 +13,7 @@ const CardProduct = ({ name, description, condition, id, price }) => {
       <div className=" mb-2">Price: {price}</div>
       <button
         className=" border-2 bg-slate-700 p-2 w-fit text-white rounded hover:bg-slate-200 hover:text-black"
-        onClick={() => handleAddToCart(id)}>
+        onClick={() => handleAddToCart(id, price, name)}>
         Add to Cart
       </button>
     </div>
