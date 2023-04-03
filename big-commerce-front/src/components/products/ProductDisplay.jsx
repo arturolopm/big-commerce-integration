@@ -1,10 +1,11 @@
-import { useState, useEffect } from "react";
+import { useContext, useEffect } from "react";
+import { GeneralContext } from "../../context/GeneralContext";
 import axios from "axios";
 
 import CardProduct from "./CardProduct";
 
 const ProductDisplay = () => {
-  const [products, setProducts] = useState([]);
+  const { products, setProducts } = useContext(GeneralContext);
   console.log(products);
 
   useEffect(() => {
@@ -15,10 +16,6 @@ const ProductDisplay = () => {
 
     fetchProducts();
   }, []);
-
-  const handleAddToCart = (productId) => {
-    console.log(`Adding product ${productId} to cart...`);
-  };
 
   return (
     <div className=" p-6 bg-slate-100">
@@ -31,9 +28,8 @@ const ProductDisplay = () => {
               name={product.name}
               description={product.description}
               condition={product.condition}
-              id={product.id}
               price={product.price}
-              handleAddToCart={handleAddToCart}
+              id={product.id}
             />
           ))}
       </div>
