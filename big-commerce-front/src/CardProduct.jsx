@@ -9,14 +9,14 @@ const CardProduct = ({
 }) => {
   return (
     <div
-      className=" p-3 my-3 text-lg bg-white"
+      className=" flex  flex-col gap-3 p-3 my-3 text-lg bg-white"
       key={id}>
-      <h2 className=" text-xl">{parse(name)}</h2>
+      <h2 className=" mb-2 text-xl">{parse(name)}</h2>
       <h2>{condition}</h2>
-      <div className=" ">{parse(description)}</div>
-      <div>Price: {price}</div>
+      <div className=" mb-2">{parse(description)}</div>
+      <div className=" mb-2">Price: {price}</div>
       <button
-        className=" border-2 bg-slate-700 p-2 text-white rounded"
+        className=" border-2 bg-slate-700 p-2 w-fit text-white rounded hover:bg-slate-200 hover:text-black"
         onClick={() => handleAddToCart(product.id)}>
         Add to Cart
       </button>
