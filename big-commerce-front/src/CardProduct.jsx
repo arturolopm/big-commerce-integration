@@ -8,12 +8,18 @@ const CardProduct = ({
   handleAddToCart,
 }) => {
   return (
-    <div key={id}>
-      <h2>{parse(name)}</h2>
+    <div
+      className=" p-3 my-3 text-lg bg-white"
+      key={id}>
+      <h2 className=" text-xl">{parse(name)}</h2>
       <h2>{condition}</h2>
-      <p>{parse(description)}</p>
-      <div>{price}</div>
-      <button onClick={() => handleAddToCart(product.id)}>Add to Cart</button>
+      <div className=" ">{parse(description)}</div>
+      <div>Price: {price}</div>
+      <button
+        className=" border-2 bg-slate-700 p-2 text-white rounded"
+        onClick={() => handleAddToCart(product.id)}>
+        Add to Cart
+      </button>
     </div>
   );
 };
