@@ -8,10 +8,8 @@ const CardProduct = ({
   handleAddToCart,
 }) => {
   return (
-    <div
-      className=" flex  flex-col gap-3 p-3 my-3 text-lg bg-white"
-      key={id}>
-      <h2 className=" mb-2 text-xl">{parse(name)}</h2>
+    <div className=" flex  flex-col gap-3 p-3 my-3 text-lg bg-white">
+      <h2 className=" mb-2 text-2xl">{parse(name)}</h2>
       <h2>{condition}</h2>
       <div className=" mb-2">{parse(description)}</div>
       <div className=" mb-2">Price: {price}</div>
