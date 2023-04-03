@@ -1,4 +1,5 @@
-import ProductDisplay from "./ProductDisplay";
+import ProductDisplay from "./components/ProductDisplay";
+import CartItems from "./components/CartItems";
 
 function App() {
   return (
