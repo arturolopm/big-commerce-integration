@@ -1,7 +1,7 @@
 const express = require("express");
 const axios = require("axios");
 const cors = require("cors");
-
+require("dotenv").config();
 const app = express();
 app.use(cors());
 app.use(express.json());
@@ -12,19 +12,10 @@ let options = {
   method: "get",
   headers: {
     "Content-Type": "application/json",
-    "X-Auth-Token": "wo9e40w72wf7f21kpz3xfgfiwmeffz",
+    "X-Auth-Token": process.env.TOKEN,
   },
   body: {},
 };
-
-// {
-//     headers: {
-//       "X-Auth-Token": "wo9e40w72wf7f21kpz3xfgfiwmeffz",
-//       "X-Auth-Client": "gpl0gdypka6xdtp5oyo9uzz5i3hvgsr",
-//       "Content-Type": "application/json",
-//       Accept: "application/json",
-//     },
-//   }
 
 app.get("/products", async (req, res) => {
   try {
