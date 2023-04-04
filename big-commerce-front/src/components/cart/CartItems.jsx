@@ -8,11 +8,15 @@ const CartItems = () => {
   const { items, openCart, setOpenCart, alert } = useContext(GeneralContext);
 
   const [response, setResponse] = useState();
-  console.log(response);
 
   const apiCart = async () => {
     const responseApi = await axios.post("http://localhost:3001/cart", {
-      body: items,
+      body: {
+        customer_id: 0,
+        line_items: items,
+        channel_id: 1,
+        locale: "en-US",
+      },
     });
     setResponse(responseApi.data.data);
   };

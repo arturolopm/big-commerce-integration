@@ -6,7 +6,6 @@ import CardProduct from "./CardProduct";
 
 const ProductDisplay = () => {
   const { products, setProducts } = useContext(GeneralContext);
-  console.log(products);
 
   useEffect(() => {
     const fetchProducts = async () => {

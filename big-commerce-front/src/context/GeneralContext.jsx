@@ -1,4 +1,5 @@
 import { createContext, useEffect, useState } from "react";
+import Swal from "sweetalert2";
 const GeneralContext = createContext();
 
 const GeneralContextProvider = ({ children }) => {
@@ -11,16 +12,18 @@ const GeneralContextProvider = ({ children }) => {
 
   useEffect(() => {
     if (items.length > 0) {
-      setAlert(true);
-      setTimeout(() => {
-        setAlert(false);
-      }, 1500);
+      Swal.fire({
+        position: "top-end",
+        icon: "success",
+        title: "item added",
+        showConfirmButton: false,
+        timer: 1500,
+      });
     }
   }, [items]);
 
   const handleAddToCart = (productId, price, name, variant_id) => {
     if (items.length === 0) {
-      console.log("variant", variant_id);
       setItems([
         {
           quantity: 1,
