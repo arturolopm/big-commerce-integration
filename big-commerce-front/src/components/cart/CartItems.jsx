@@ -6,7 +6,9 @@ import { MdShoppingCart } from "react-icons/md";
 
 const CartItems = () => {
   const { items, openCart, setOpenCart, alert } = useContext(GeneralContext);
-
+  const [cartStyles, setCartStyles] = useState(
+    "flex justify-end p-3 border-4 bg-slate-100"
+  );
   const [response, setResponse] = useState();
 
   const apiCart = async () => {
@@ -26,17 +28,28 @@ const CartItems = () => {
     }
   }, [response]);
 
+  useEffect(() => {
+    setTimeout(() => {
+      setCartStyles("flex justify-end p-3 border-4 bg-black text-white");
+    }, 1500);
+
+    setCartStyles("flex justify-end p-3 border-4 bg-slate-100");
+    return () => {
+      setCartStyles("flex justify-end p-3 border-4 bg-slate-100");
+    };
+  }, [items]);
+
   return (
-    <div>
-      <div className=" flex justify-end p-3 border-4 bg-slate-100 ">
+    <div className=" relative ">
+      <div className="flex  right-5 top-5 fixed rounded-lg w-fit justify-end p-3  bg-slate-900 z-10 text-white hover:bg-slate-100 hover:text-black">
         <button onClick={() => setOpenCart((openCart) => !openCart)}>
-          {openCart ? "Close Cart" : "Open Cart"}
+          {/* {openCart ? "Close Cart" : "Open Cart"} */}
           <MdShoppingCart className=" text-3xl" />
         </button>
       </div>
 
       {openCart && (
-        <div className=" absolute right-5 bg-slate-300 w-1/2">
+        <div className=" fixed right-5 top-9 bg-slate-300 w-1/2">
           <div className=" p-6">
             {items.length > 0 &&
               items.map((product, key) => (
