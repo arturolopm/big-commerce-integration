@@ -10,10 +10,12 @@ const GeneralContextProvider = ({ children }) => {
   const [alert, setAlert] = useState(false);
 
   useEffect(() => {
-    setAlert(true);
-    setTimeout(() => {
-      setAlert(false);
-    }, 2000);
+    if (items.length > 0) {
+      setAlert(true);
+      setTimeout(() => {
+        setAlert(false);
+      }, 1500);
+    }
   }, [items]);
 
   const handleAddToCart = (productId, price, name) => {

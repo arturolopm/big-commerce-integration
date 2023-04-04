@@ -1,12 +1,34 @@
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
+import axios from "axios";
 import { GeneralContext } from "../../context/GeneralContext";
 import { MdShoppingCart } from "react-icons/md";
 
 const CartItems = () => {
   const { items, openCart, setOpenCart, alert } = useContext(GeneralContext);
 
+  const [sendCart, setSendCart] = useState(false);
+  console.log(sendCart);
+
+  useEffect(() => {
+    const apiCart = async () => {
+      if (sendCart) {
+        const response = await axios.post("http://localhost:3001/cart", {
+          body: items,
+        });
+        console.log(response.data);
+      }
+      setSendCart(false);
+      // setProducts(response.data);
+      return () => {
+        setSendCart(false);
+      };
+    };
+
+    apiCart();
+  }, [sendCart]);
+
   return (
-    <div onBlur={() => setOpenCart(false)}>
+    <div>
       <div className=" flex justify-end p-3 border-4 bg-slate-100 ">
         <button onClick={() => setOpenCart((openCart) => !openCart)}>
           {openCart ? "Close Cart" : "Open Cart"}
@@ -36,7 +58,9 @@ const CartItems = () => {
               ))}
           </div>
           <div className=" flex justify-center">
-            <button className=" p-2 rounded-lg bg-black text-white font-bold">
+            <button
+              onClick={() => setSendCart(true)}
+              className=" p-2 rounded-lg bg-black text-white font-bold">
               Send Cart
             </button>
           </div>
