@@ -27,10 +27,11 @@ const NavBar = () => {
   };
 
   return (
-    <>
+    <div className="flex bg-slate-600 text-white">
       <CartSearch onSubmit={searchCart} />
+      <h1 className=" text-3xl mr-auto ml-10">Big Commerce Cart Integration</h1>
       <CartItems />
-    </>
+    </div>
   );
 };
 
