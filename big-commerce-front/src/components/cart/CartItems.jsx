@@ -12,7 +12,7 @@ const CartItems = () => {
   const [response, setResponse] = useState();
 
   const apiCart = async () => {
-    const responseApi = await axios.post("http://localhost:3001/cart", {
+    const responseApi = await axios.post("http://localhost:3001/carts", {
       body: {
         customer_id: 0,
         line_items: items,

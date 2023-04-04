@@ -52,9 +52,38 @@ async function createCart(req, res) {
 }
 
 // POST route to handle cart creation
-app.post("/cart", async (req, res) => {
+app.post("/carts", async (req, res) => {
   try {
     const cart = await createCart(req, res);
+    res.send(cart);
+  } catch (error) {
+    res.status(500).send(error.message);
+  }
+});
+
+// GET route to handle cart recovery
+const getCart = async (req, res) => {
+  try {
+    // console.log(`${STORE_URL}/carts/${req.params.cartId}`);
+    const response = await axios.get(
+      `${STORE_URL}/carts/${req.params.cartId}`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          "X-Auth-Token": API_TOKEN,
+        },
+      }
+    );
+    res.send(response.data.data);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Error fetching products");
+  }
+};
+
+app.get("/carts/:cartId", async (req, res) => {
+  try {
+    const cart = await getCart(req, res);
     res.send(cart);
   } catch (error) {
     res.status(500).send(error.message);

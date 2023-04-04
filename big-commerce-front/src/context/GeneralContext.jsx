@@ -62,6 +62,7 @@ const GeneralContextProvider = ({ children }) => {
     <GeneralContext.Provider
       value={{
         items,
+        setItems,
         handleAddToCart,
         products,
         setProducts,
