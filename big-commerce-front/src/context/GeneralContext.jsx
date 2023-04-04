@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 const GeneralContext = createContext();
 
 const GeneralContextProvider = ({ children }) => {
@@ -6,7 +6,15 @@ const GeneralContextProvider = ({ children }) => {
 
   const [items, setItems] = useState([]);
   const [products, setProducts] = useState([]);
-  console.log(items);
+  const [openCart, setOpenCart] = useState(false);
+  const [alert, setAlert] = useState(false);
+
+  useEffect(() => {
+    setAlert(true);
+    setTimeout(() => {
+      setAlert(false);
+    }, 2000);
+  }, [items]);
 
   const handleAddToCart = (productId, price, name) => {
     if (items.length === 0) {
@@ -50,6 +58,9 @@ const GeneralContextProvider = ({ children }) => {
         handleAddToCart,
         products,
         setProducts,
+        openCart,
+        setOpenCart,
+        alert,
       }}>
       {children}
     </GeneralContext.Provider>
