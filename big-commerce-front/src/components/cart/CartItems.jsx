@@ -2,10 +2,10 @@ import { useContext, useState, useEffect } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { GeneralContext } from "../../context/GeneralContext";
-import { MdShoppingCart } from "react-icons/md";
+import { MdShoppingCart, MdDelete } from "react-icons/md";
 
 const CartItems = () => {
-  const { items, openCart, setOpenCart, alert } = useContext(GeneralContext);
+  const { items, openCart, setOpenCart, setItems } = useContext(GeneralContext);
   const [cartStyles, setCartStyles] = useState(
     "flex justify-end p-3 border-4 bg-slate-100"
   );
@@ -49,8 +49,12 @@ const CartItems = () => {
       </div>
 
       {openCart && (
-        <div className=" fixed right-5 top-9 bg-slate-300 w-1/2">
-          <div className=" p-6">
+        <div className=" border-4 border-black max-h-[90vh] overflow-y-scroll fixed right-5 top-9 bg-slate-300 w-1/2">
+          <button onClick={() => setItems([])}>
+            <div className="m-2 mx-5 font-bold "> Delete cart</div>
+            <MdDelete className=" m-2 mx-5 text-xl" />
+          </button>
+          <div className="  p-6">
             {items.length > 0 &&
               items.map((product, key) => (
                 <div
@@ -70,7 +74,7 @@ const CartItems = () => {
           <div className=" flex justify-center">
             <button
               onClick={() => apiCart()}
-              className=" p-2 rounded-lg bg-black text-white font-bold">
+              className=" p-2 rounded-lg mb-4 bg-black text-white font-bold">
               Send Cart
             </button>
           </div>
