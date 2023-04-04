@@ -1,10 +1,10 @@
 import ProductDisplay from "./components/products/ProductDisplay";
-import CartItems from "./components/cart/CartItems";
+import NavBar from "./components/nav/NavBar";
 
 function App() {
   return (
     <div>
-      <CartItems />
+      <NavBar />
       <ProductDisplay />
     </div>
   );
