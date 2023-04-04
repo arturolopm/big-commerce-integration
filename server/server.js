@@ -2,25 +2,24 @@ const express = require("express");
 const axios = require("axios");
 const cors = require("cors");
 require("dotenv").config();
+
 const app = express();
-app.use(cors());
-app.use(express.json());
+const PORT = process.env.PORT || 3001;
 const STORE_URL = "https://api.bigcommerce.com/stores/s9ye4xe3x0/v3";
 const API_TOKEN = process.env.TOKEN;
 
-app.get("/products", async (req, res) => {
-  let url = `${STORE_URL}/catalog/products`;
+app.use(cors());
+app.use(express.json());
 
-  let options = {
-    method: "get",
-    headers: {
-      "Content-Type": "application/json",
-      "X-Auth-Token": API_TOKEN,
-    },
-    body: {},
-  };
+// GET route to fetch products
+app.get("/products", async (req, res) => {
   try {
-    const response = await axios(url, options);
+    const response = await axios.get(`${STORE_URL}/catalog/products`, {
+      headers: {
+        "Content-Type": "application/json",
+        "X-Auth-Token": API_TOKEN,
+      },
+    });
     res.send(response.data.data);
   } catch (error) {
     console.error(error);
@@ -28,33 +27,33 @@ app.get("/products", async (req, res) => {
   }
 });
 
-// create a function for making the API call
-async function createCart() {
+// function to make the API call to create cart
+async function createCart(req, res) {
+  console.log(req.body);
   try {
-    const url = `${STORE_URL}/carts`;
-    const options = {
-      method: "post",
-      headers: {
-        "Content-Type": "application/json",
-        "X-Auth-Token": API_TOKEN,
-      },
-      data: {
+    const response = await axios.post(
+      `${STORE_URL}/carts`,
+      {
         customer_id: 0,
         line_items: [
           {
-            quantity: 2,
-            product_id: 94,
-            list_price: 5,
-            name: "calendar",
+            quantity: 1,
+            product_id: 77,
+            list_price: 49,
+            name: "[Sample] Fog Linen Chambray Towel - Beige Stripe",
+            variant_id: 14,
           },
         ],
         channel_id: 1,
-
         locale: "en-US",
       },
-    };
-    const response = await axios(url, options);
-    console.log(response.data);
+      {
+        headers: {
+          "Content-Type": "application/json",
+          "X-Auth-Token": API_TOKEN,
+        },
+      }
+    );
     return response.data;
   } catch (error) {
     console.error(error);
@@ -62,16 +61,17 @@ async function createCart() {
   }
 }
 
-// handle the API call in the route handler
+// POST route to handle cart creation
 app.post("/cart", async (req, res) => {
+  console.log(req.body);
   try {
-    const cart = await createCart();
+    const cart = await createCart(req, res);
     res.send(cart);
   } catch (error) {
     res.status(500).send(error.message);
   }
 });
 
-app.listen(3001, () => {
-  console.log("Server listening on port 3001");
+app.listen(PORT, () => {
+  console.log(`Server listening on port ${PORT}`);
 });

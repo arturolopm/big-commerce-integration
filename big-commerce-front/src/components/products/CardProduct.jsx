@@ -2,7 +2,14 @@ import { useContext } from "react";
 import { GeneralContext } from "../../context/GeneralContext";
 import parse from "html-react-parser";
 
-const CardProduct = ({ name, description, condition, id, price }) => {
+const CardProduct = ({
+  name,
+  description,
+  condition,
+  id,
+  price,
+  variant_id,
+}) => {
   const { handleAddToCart } = useContext(GeneralContext);
 
   return (
@@ -14,7 +21,7 @@ const CardProduct = ({ name, description, condition, id, price }) => {
       {id && (
         <button
           className=" border-2 bg-slate-700 p-2 w-fit text-white rounded hover:bg-slate-200 hover:text-black"
-          onClick={() => handleAddToCart(id, price, name)}>
+          onClick={() => handleAddToCart(id, price, name, variant_id)}>
           Add to Cart
         </button>
       )}

@@ -1,31 +1,26 @@
 import { useContext, useState, useEffect } from "react";
 import axios from "axios";
+import Swal from "sweetalert2";
 import { GeneralContext } from "../../context/GeneralContext";
 import { MdShoppingCart } from "react-icons/md";
 
 const CartItems = () => {
   const { items, openCart, setOpenCart, alert } = useContext(GeneralContext);
 
-  const [sendCart, setSendCart] = useState(false);
-  console.log(sendCart);
+  const [response, setResponse] = useState();
+  console.log(response);
 
+  const apiCart = async () => {
+    const responseApi = await axios.post("http://localhost:3001/cart", {
+      body: items,
+    });
+    setResponse(responseApi.data.data);
+  };
   useEffect(() => {
-    const apiCart = async () => {
-      if (sendCart) {
-        const response = await axios.post("http://localhost:3001/cart", {
-          body: items,
-        });
-        console.log(response.data);
-      }
-      setSendCart(false);
-      // setProducts(response.data);
-      return () => {
-        setSendCart(false);
-      };
-    };
-
-    apiCart();
-  }, [sendCart]);
+    if (response) {
+      Swal.fire("Good job!", `Your cart id is ${response.id}`, "success");
+    }
+  }, [response]);
 
   return (
     <div>
@@ -44,8 +39,10 @@ const CartItems = () => {
         <div className=" absolute right-5 bg-slate-300 w-1/2">
           <div className=" p-6">
             {items.length > 0 &&
-              items.map((product) => (
-                <div className=" flex  flex-col gap-3 p-3 my-3 text-lg bg-white">
+              items.map((product, key) => (
+                <div
+                  key={key}
+                  className=" flex  flex-col gap-3 p-3 my-3 text-lg bg-white">
                   <h2 className="  text-2xl">{product.name}</h2>
 
                   <div className=" ">Unit Price: {product.list_price}</div>
@@ -59,7 +56,7 @@ const CartItems = () => {
           </div>
           <div className=" flex justify-center">
             <button
-              onClick={() => setSendCart(true)}
+              onClick={() => apiCart()}
               className=" p-2 rounded-lg bg-black text-white font-bold">
               Send Cart
             </button>

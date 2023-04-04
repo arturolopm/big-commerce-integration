@@ -18,14 +18,16 @@ const GeneralContextProvider = ({ children }) => {
     }
   }, [items]);
 
-  const handleAddToCart = (productId, price, name) => {
+  const handleAddToCart = (productId, price, name, variant_id) => {
     if (items.length === 0) {
+      console.log("variant", variant_id);
       setItems([
         {
           quantity: 1,
           product_id: productId,
           list_price: price,
           name: name,
+          variant_id: variant_id,
         },
       ]);
     } else {

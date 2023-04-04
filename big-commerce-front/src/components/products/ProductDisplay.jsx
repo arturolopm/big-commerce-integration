@@ -30,6 +30,11 @@ const ProductDisplay = () => {
               condition={product.condition}
               price={product.price}
               id={product.id}
+              variant_id={
+                product.base_variant_id != null
+                  ? product.base_variant_id
+                  : product.option_set_id
+              }
             />
           ))}
       </div>
