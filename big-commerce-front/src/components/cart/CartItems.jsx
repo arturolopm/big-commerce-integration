@@ -34,11 +34,7 @@ const CartItems = () => {
           <MdShoppingCart className=" text-3xl" />
         </button>
       </div>
-      {alert && (
-        <div className=" absolute right-5 bg-slate-300 w-36 text-center rounded-lg text-black">
-          item Added
-        </div>
-      )}
+
       {openCart && (
         <div className=" absolute right-5 bg-slate-300 w-1/2">
           <div className=" p-6">
