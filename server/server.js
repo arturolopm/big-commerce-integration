@@ -8,6 +8,7 @@ const app = express();
 const PORT = process.env.PORT || 3001;
 const STORE_URL = process.env.STORE_URL;
 const API_TOKEN = process.env.TOKEN;
+const CLIENT_ID = process.env.CLIENT_ID;
 
 app.use(cors());
 app.use(express.json());
@@ -29,6 +30,7 @@ app.get("/products", async (req, res) => {
 });
 
 // function to make the API call to create cart
+//  This is declared as function and the below get route will get declared as const function just to show that it is possible in both ways, for production plesae use ES6 syntax
 async function createCart(req, res) {
   try {
     const response = await axios.post(
@@ -40,6 +42,7 @@ async function createCart(req, res) {
         headers: {
           "Content-Type": "application/json",
           "X-Auth-Token": API_TOKEN,
+          "X-Auth-Client": CLIENT_ID,
         },
       }
     );
@@ -61,7 +64,7 @@ app.post("/carts", async (req, res) => {
   }
 });
 
-// GET route to handle cart recovery
+// GET route to handle cart recovery made
 const getCart = async (req, res) => {
   try {
     // console.log(`${STORE_URL}/carts/${req.params.cartId}`);
@@ -71,6 +74,7 @@ const getCart = async (req, res) => {
         headers: {
           "Content-Type": "application/json",
           "X-Auth-Token": API_TOKEN,
+          "X-Auth-Client": CLIENT_ID,
         },
       }
     );

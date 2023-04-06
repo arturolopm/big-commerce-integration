@@ -59,7 +59,7 @@ const CartItems = () => {
               items.map((product, key) => (
                 <div
                   key={key}
-                  className=" flex  flex-col gap-3 p-3 my-3 text-lg bg-white">
+                  className=" flex text-black flex-col gap-3 p-3 my-3 text-lg bg-white">
                   <h2 className="  text-2xl">{product.name}</h2>
 
                   <div className=" ">Unit Price: {product.list_price}</div>
