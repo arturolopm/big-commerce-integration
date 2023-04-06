@@ -14,10 +14,7 @@ const CartItems = () => {
   const apiCart = async () => {
     const responseApi = await axios.post("http://localhost:3001/carts", {
       body: {
-        customer_id: 0,
         line_items: items,
-        channel_id: 1,
-        locale: "en-US",
       },
     });
     setResponse(responseApi.data.data);
@@ -27,17 +24,6 @@ const CartItems = () => {
       Swal.fire("Good job!", `Your cart id is ${response.id}`, "success");
     }
   }, [response]);
-
-  useEffect(() => {
-    setTimeout(() => {
-      setCartStyles("flex justify-end p-3 border-4 bg-black text-white");
-    }, 1500);
-
-    setCartStyles("flex justify-end p-3 border-4 bg-slate-100");
-    return () => {
-      setCartStyles("flex justify-end p-3 border-4 bg-slate-100");
-    };
-  }, [items]);
 
   return (
     <div className=" relative ">
